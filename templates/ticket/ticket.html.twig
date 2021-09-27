@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ app.user.getNom() }}{% endblock %}
+    {% block body %}
+        <hr>
+        <td><a  href="{{ path('liste_user') }}"><button type='button' class='btn btn-info'>Voir les utilisateurs</button></a> </td>
+        <hr>
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-info">
+            voir
+        </button>
+        {{ form_end(form) }}
+        <hr>
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>crée le</th>
+                <th>crée par</th>
+                <th>categorie</th>
+{#                <th>Titre</th>#}
+                <th>Priorite</th>
+                <th>domainne</th>
+                <th>ss-domainne</th>
+                <th>Status</th>
+                <th>Responsable</th>
+                <th>action</th>
+
+            </tr>
+            </thead>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.getId() }}</td>
+                    <td>{{ ticket.getDate()|format_date}}</td>
+                    <td>{{ ticket.getUser().getNom() }}</td>
+                    <td>{{ ticket.Categorie.getNom }}</td>
+{#                    <td>{{ ticket.getTitre() }}</td>#}
+                    <td>{{ ticket.Priorite.getNom() }}</td>
+                    <td>{{ ticket.Domaine.getNom() }}</td>
+                    <td>{{ ticket.SDomaine.getNom() }}</td>
+                    <td>{{ ticket.Statut.getNom() }}</td>
+                    <td>{{ ticket.Affectation.getNom() }}</td>
+                    <td><a  href="{{ path('cree_modification',{'id':ticket.getId()}) }}"><button type='button' class='btn btn-info'>modifier</button></a> </td>
+
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endblock %}
+
